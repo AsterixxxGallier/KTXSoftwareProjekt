@@ -30,18 +30,15 @@ class Main : KtxGame<KtxScreen>() {
     lateinit var button: Button
 
     override fun create() {
-        stage = Stage().also {
-            Gdx.input.inputProcessor = it
-        }
+        stage = Stage()
+        Gdx.input.inputProcessor = stage
         font = BitmapFont()
         val playButtonDrawable = TextureRegionDrawable(TextureRegion(Texture("play_button.png".toInternalFile(), true)))
 
-        buttonStyle = Button.ButtonStyle().also {
-            it.up = playButtonDrawable
-        }
-        button = Button(buttonStyle).also {
-            stage.addActor(it)
-        }
+        buttonStyle = Button.ButtonStyle()
+        buttonStyle.up = playButtonDrawable
+        button = Button(buttonStyle)
+        stage.addActor(button)
         val ratio = button.width / button.height
         button.height = 80f
         button.width = button.height * ratio
