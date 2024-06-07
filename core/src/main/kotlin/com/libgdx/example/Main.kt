@@ -9,10 +9,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle
+import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import ktx.app.KtxGame
@@ -26,27 +26,26 @@ import ktx.graphics.use
 class Main : KtxGame<KtxScreen>() {
     lateinit var stage: Stage
     lateinit var font: BitmapFont
-    lateinit var textButtonStyle: TextButtonStyle
-    lateinit var button: TextButton
+    lateinit var buttonStyle: Button.ButtonStyle
+    lateinit var button: Button
 
     override fun create() {
         stage = Stage().also {
             Gdx.input.inputProcessor = it
         }
         font = BitmapFont()
-//        val logoDrawable = TextureRegionDrawable(TextureRegion(Texture("logo.png".toInternalFile(), true)))
         val playButtonDrawable = TextureRegionDrawable(TextureRegion(Texture("play_button.png".toInternalFile(), true)))
 
-        textButtonStyle = TextButtonStyle().also {
-            it.font = font
+        buttonStyle = Button.ButtonStyle().also {
             it.up = playButtonDrawable
-            // it.up = skin.getDrawable("up-button")
-            // it.down = skin.getDrawable("down-button")
-            // it.checked = skin.getDrawable("checked-button")
         }
-        button = TextButton("Button1", textButtonStyle).also {
+        button = Button(buttonStyle).also {
             stage.addActor(it)
         }
+        val ratio = button.width / button.height
+        button.height = 80f
+        button.width = button.height * ratio
+        button.setPosition(320f,100f, Align.center)
         button.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent?, actor: Actor?) {
                 println("Button Pressed")
