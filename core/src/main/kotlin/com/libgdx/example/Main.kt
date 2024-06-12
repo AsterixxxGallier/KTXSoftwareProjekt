@@ -29,7 +29,7 @@ class Main : KtxGame<KtxScreen>() {
 }
 
 class FirstScreen : KtxScreen {
-    private val image = Texture("logo.png".toInternalFile(), true) // .apply { setFilter(Linear, Linear) }
+    private val image = Texture("seismic_arcade.png".toInternalFile(), true) // .apply { setFilter(Linear, Linear) }
     private val batch = SpriteBatch()
     private var camera: Camera = PerspectiveCamera()
     private var viewport: Viewport = FitViewport(800f, 480f, camera)
@@ -53,7 +53,7 @@ class FirstScreen : KtxScreen {
         button.height = 80f
         button.width = button.height * aspectRatio
 
-        button.setPosition(320f,100f, Align.center)
+        button.setPosition(300f,100f, Align.center)
 
         button.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent?, actor: Actor?) {
@@ -69,7 +69,10 @@ class FirstScreen : KtxScreen {
     override fun render(delta: Float) {
         clearScreen(red = 0.9f, green = 0.9f, blue = 0.5f)
         batch.use { batch ->
-            batch.draw(image, 100f, 160f)
+            val aspectRatio = 948f / 547f
+            val width = 400f
+            val height = width / aspectRatio
+            batch.draw(image, 100f, 160f, width, height)
         }
         stage.draw()
     }
@@ -90,7 +93,7 @@ class SecondScreen : KtxScreen {
     }
 
     override fun render(delta: Float) {
-        clearScreen(red = 0.2f, green = 0.1f, blue = 0.5f)
+        clearScreen(red = 1f, green = 1f, blue = 1f)
     }
 
     override fun dispose() {
