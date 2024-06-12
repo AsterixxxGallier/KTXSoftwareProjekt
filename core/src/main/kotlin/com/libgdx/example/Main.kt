@@ -22,11 +22,23 @@ import ktx.graphics.use
 
 
 class Main : KtxGame<KtxScreen>() {
+    override fun create() {
+        addScreen(FirstScreen())
+        setScreen<FirstScreen>()
+    }
+}
+
+class FirstScreen : KtxScreen {
+    private val image = Texture("logo.png".toInternalFile(), true) // .apply { setFilter(Linear, Linear) }
+    private val batch = SpriteBatch()
+    private var camera: Camera = PerspectiveCamera()
+    private var viewport: Viewport = FitViewport(800f, 480f, camera)
+
     lateinit var stage: Stage
     lateinit var buttonStyle: Button.ButtonStyle
     lateinit var button: Button
 
-    override fun create() {
+    override fun show() {
         stage = Stage()
         Gdx.input.inputProcessor = stage
 
@@ -48,23 +60,7 @@ class Main : KtxGame<KtxScreen>() {
                 println("Button Pressed")
             }
         })
-
-
-        addScreen(FirstScreen())
-        setScreen<FirstScreen>()
     }
-
-    override fun render() {
-        super.render()
-        stage.draw()
-    }
-}
-
-class FirstScreen : KtxScreen {
-    private val image = Texture("logo.png".toInternalFile(), true) // .apply { setFilter(Linear, Linear) }
-    private val batch = SpriteBatch()
-    private var camera: Camera = PerspectiveCamera()
-    private var viewport: Viewport = FitViewport(800f, 480f, camera)
 
     override fun resize(width: Int, height: Int) {
         viewport.update(width, height)
@@ -75,10 +71,29 @@ class FirstScreen : KtxScreen {
         batch.use { batch ->
             batch.draw(image, 100f, 160f)
         }
+        stage.draw()
     }
 
     override fun dispose() {
         image.disposeSafely()
+        batch.disposeSafely()
+    }
+}
+
+class SecondScreen : KtxScreen {
+    private val batch = SpriteBatch()
+    private var camera: Camera = PerspectiveCamera()
+    private var viewport: Viewport = FitViewport(800f, 480f, camera)
+
+    override fun resize(width: Int, height: Int) {
+        viewport.update(width, height)
+    }
+
+    override fun render(delta: Float) {
+        clearScreen(red = 0.2f, green = 0.1f, blue = 0.5f)
+    }
+
+    override fun dispose() {
         batch.disposeSafely()
     }
 }
