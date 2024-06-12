@@ -4,9 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Camera
 import com.badlogic.gdx.graphics.PerspectiveCamera
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Button
@@ -25,24 +23,26 @@ import ktx.graphics.use
 
 class Main : KtxGame<KtxScreen>() {
     lateinit var stage: Stage
-    lateinit var font: BitmapFont
     lateinit var buttonStyle: Button.ButtonStyle
     lateinit var button: Button
 
     override fun create() {
         stage = Stage()
         Gdx.input.inputProcessor = stage
-        font = BitmapFont()
-        val playButtonDrawable = TextureRegionDrawable(TextureRegion(Texture("play_button.png".toInternalFile(), true)))
+
+        val playButtonDrawable = TextureRegionDrawable(Texture("play_button.png".toInternalFile(), true))
 
         buttonStyle = Button.ButtonStyle()
         buttonStyle.up = playButtonDrawable
         button = Button(buttonStyle)
         stage.addActor(button)
-        val ratio = button.width / button.height
+
+        val aspectRatio = button.width / button.height
         button.height = 80f
-        button.width = button.height * ratio
+        button.width = button.height * aspectRatio
+
         button.setPosition(320f,100f, Align.center)
+
         button.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent?, actor: Actor?) {
                 println("Button Pressed")
