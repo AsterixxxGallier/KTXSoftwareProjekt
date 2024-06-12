@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Camera
 import com.badlogic.gdx.graphics.PerspectiveCamera
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.math.Affine2
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Button
@@ -74,9 +73,8 @@ class FirstScreen : KtxScreen {
     override fun render(delta: Float) {
         clearScreen(red = 1f, green = 1f, blue = 1f)
         batch.use { batch ->
-            val aspectRatio = image.textureData.width / image.textureData.height
-            println(aspectRatio)
-            val width = 200f
+            val aspectRatio = 948f / 547f
+            val width = 400f
             val height = width / aspectRatio
             batch.draw(image, 100f, 160f, width, height)
         }
