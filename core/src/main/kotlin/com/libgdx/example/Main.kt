@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Camera
 import com.badlogic.gdx.graphics.PerspectiveCamera
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.math.Affine2
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Button
@@ -41,7 +42,7 @@ class Main : KtxGame<KtxScreen>() {
         button.height = 80f
         button.width = button.height * aspectRatio
 
-        button.setPosition(320f,100f, Align.center)
+        button.setPosition(300f,100f, Align.center)
 
         button.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent?, actor: Actor?) {
@@ -61,7 +62,7 @@ class Main : KtxGame<KtxScreen>() {
 }
 
 class FirstScreen : KtxScreen {
-    private val image = Texture("logo.png".toInternalFile(), true) // .apply { setFilter(Linear, Linear) }
+    private val image = Texture("seismic_arcade.png".toInternalFile(), true) // .apply { setFilter(Linear, Linear) }
     private val batch = SpriteBatch()
     private var camera: Camera = PerspectiveCamera()
     private var viewport: Viewport = FitViewport(800f, 480f, camera)
@@ -71,9 +72,13 @@ class FirstScreen : KtxScreen {
     }
 
     override fun render(delta: Float) {
-        clearScreen(red = 0.9f, green = 0.9f, blue = 0.5f)
+        clearScreen(red = 1f, green = 1f, blue = 1f)
         batch.use { batch ->
-            batch.draw(image, 100f, 160f)
+            val aspectRatio = image.textureData.width / image.textureData.height
+            println(aspectRatio)
+            val width = 200f
+            val height = width / aspectRatio
+            batch.draw(image, 100f, 160f, width, height)
         }
     }
 
