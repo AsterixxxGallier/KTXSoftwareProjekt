@@ -1,4 +1,4 @@
-package com.libgdx.example
+package com.libgdx.example.view.screens
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Camera
@@ -13,23 +13,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
-import ktx.app.KtxGame
+import com.libgdx.example.Controller
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
 import ktx.assets.disposeSafely
 import ktx.assets.toInternalFile
 import ktx.graphics.use
 
-
-class Main : KtxGame<KtxScreen>() {
-    override fun create() {
-        addScreen(FirstScreen())
-        addScreen(TicTacToeScreen())
-        setScreen<TicTacToeScreen>()
-    }
-}
-
-class FirstScreen : KtxScreen {
+class StartScreen(val controller: Controller) : KtxScreen {
     private val image = Texture("seismic_arcade.png".toInternalFile(), true) // .apply { setFilter(Linear, Linear) }
     private val batch = SpriteBatch()
     private var camera: Camera = PerspectiveCamera()
@@ -59,6 +50,8 @@ class FirstScreen : KtxScreen {
         button.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent?, actor: Actor?) {
                 println("Button Pressed")
+
+				controller.playButtonPressed()
             }
         })
     }
@@ -68,7 +61,7 @@ class FirstScreen : KtxScreen {
     }
 
     override fun render(delta: Float) {
-        clearScreen(red = 0.9f, green = 0.9f, blue = 0.5f)
+        clearScreen(red = 1f, green = 1f, blue = 1f)
         batch.use { batch ->
             val aspectRatio = 948f / 547f
             val width = 400f
@@ -80,49 +73,6 @@ class FirstScreen : KtxScreen {
 
     override fun dispose() {
         image.disposeSafely()
-        batch.disposeSafely()
-    }
-}
-
-class SecondScreen : KtxScreen {
-    private val batch = SpriteBatch()
-    private var camera: Camera = PerspectiveCamera()
-    private var viewport: Viewport = FitViewport(800f, 480f, camera)
-
-    override fun resize(width: Int, height: Int) {
-        viewport.update(width, height)
-    }
-
-    override fun render(delta: Float) {
-        clearScreen(red = 1f, green = 1f, blue = 1f)
-    }
-
-    override fun dispose() {
-        batch.disposeSafely()
-    }
-}
-
-class TicTacToeScreen : KtxScreen {
-    private val image = Texture("tictactoe.jpg".toInternalFile(), true) // .apply { setFilter(Linear, Linear) }
-    private val batch = SpriteBatch()
-    private var camera: Camera = PerspectiveCamera()
-    private var viewport: Viewport = FitViewport(800f, 480f, camera)
-
-    override fun resize(width: Int, height: Int) {
-        viewport.update(width, height)
-    }
-
-    override fun render(delta: Float) {
-        clearScreen(red = 1f, green = 1f, blue = 1f)
-        batch.use { batch ->
-            val aspectRatio = 474f / 613f
-            val width = 390f
-            val height = width / aspectRatio
-            batch.draw(image, 130f, 5f, width, height)
-        }
-    }
-
-    override fun dispose() {
         batch.disposeSafely()
     }
 }
