@@ -12,7 +12,8 @@ class Controller {
     }
 
     fun started() {
-        changeScreen(Screen.Start)
+//        changeScreen(Screen.Start)
+        changeScreen(Screen.GameSelection)
     }
 
     fun playButtonPressed() {

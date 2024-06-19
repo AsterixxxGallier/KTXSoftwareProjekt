@@ -7,4 +7,5 @@ class Model {
 enum class Screen {
     Start,
     GameSelection,
+    TicTacToe,
 }
