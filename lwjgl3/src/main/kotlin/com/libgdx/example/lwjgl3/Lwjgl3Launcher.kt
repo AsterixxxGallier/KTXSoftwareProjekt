@@ -12,9 +12,8 @@ fun main() {
     if (StartupHelper.startNewJvmIfRequired())
       return
     val controller = Controller()
-    controller.started()
     Lwjgl3Application(controller.view.game, Lwjgl3ApplicationConfiguration().apply {
-        setTitle("ExampleGame")
+        setTitle("Seismic Arcade")
         setWindowedMode(640, 480)
         setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
     })

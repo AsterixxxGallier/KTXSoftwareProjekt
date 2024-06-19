@@ -15,5 +15,6 @@ class Game(val controller: Controller) : KtxGame<KtxScreen>() {
         addScreen(StartScreen(controller))
         addScreen(GameSelectionScreen(controller))
         addScreen(TicTacToeScreen(controller))
+        controller.started()
     }
 }
