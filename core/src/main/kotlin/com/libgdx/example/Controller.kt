@@ -13,7 +13,7 @@ class Controller {
 
     fun started() {
 //        changeScreen(Screen.Start)
-        changeScreen(Screen.GameSelection)
+        changeScreen(Screen.TicTacToe)
     }
 
     fun playButtonPressed() {
