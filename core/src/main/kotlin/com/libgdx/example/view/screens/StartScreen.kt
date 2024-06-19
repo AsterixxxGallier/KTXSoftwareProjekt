@@ -1,6 +1,4 @@
-@file:Suppress("SpellCheckingInspection")
-
-package com.libgdx.example
+package com.libgdx.example.view.screens
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Camera
@@ -15,23 +13,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
-import ktx.app.KtxGame
+import com.libgdx.example.Controller
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
 import ktx.assets.disposeSafely
 import ktx.assets.toInternalFile
 import ktx.graphics.use
 
-
-class Main : KtxGame<KtxScreen>() {
-    override fun create() {
-        addScreen(FirstScreen(this))
-        addScreen(SecondScreen(this))
-        setScreen<FirstScreen>()
-    }
-}
-
-class FirstScreen(val game: Main) : KtxScreen {
+class StartScreen(val controller: Controller) : KtxScreen {
     private val image = Texture("seismic_arcade.png".toInternalFile(), true) // .apply { setFilter(Linear, Linear) }
     private val batch = SpriteBatch()
     private var camera: Camera = PerspectiveCamera()
@@ -61,7 +50,8 @@ class FirstScreen(val game: Main) : KtxScreen {
         button.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent?, actor: Actor?) {
                 println("Button Pressed")
-				game.setScreen<SecondScreen>()
+
+				controller.playButtonPressed()
             }
         })
     }
@@ -83,24 +73,6 @@ class FirstScreen(val game: Main) : KtxScreen {
 
     override fun dispose() {
         image.disposeSafely()
-        batch.disposeSafely()
-    }
-}
-
-class SecondScreen(val game: Main) : KtxScreen {
-    private val batch = SpriteBatch()
-    private var camera: Camera = PerspectiveCamera()
-    private var viewport: Viewport = FitViewport(800f, 480f, camera)
-
-    override fun resize(width: Int, height: Int) {
-        viewport.update(width, height)
-    }
-
-    override fun render(delta: Float) {
-        clearScreen(red = 1f, green = 235f / 255f, blue = 205f / 255f)
-    }
-
-    override fun dispose() {
         batch.disposeSafely()
     }
 }
