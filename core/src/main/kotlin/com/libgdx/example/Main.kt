@@ -1,3 +1,5 @@
+@file:Suppress("SpellCheckingInspection")
+
 package com.libgdx.example
 
 import com.badlogic.gdx.Gdx
@@ -23,12 +25,13 @@ import ktx.graphics.use
 
 class Main : KtxGame<KtxScreen>() {
     override fun create() {
-        addScreen(FirstScreen())
+        addScreen(FirstScreen(this))
+        addScreen(SecondScreen(this))
         setScreen<FirstScreen>()
     }
 }
 
-class FirstScreen : KtxScreen {
+class FirstScreen(val game: Main) : KtxScreen {
     private val image = Texture("seismic_arcade.png".toInternalFile(), true) // .apply { setFilter(Linear, Linear) }
     private val batch = SpriteBatch()
     private var camera: Camera = PerspectiveCamera()
@@ -58,6 +61,7 @@ class FirstScreen : KtxScreen {
         button.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent?, actor: Actor?) {
                 println("Button Pressed")
+				game.setScreen<SecondScreen>()
             }
         })
     }
@@ -67,7 +71,7 @@ class FirstScreen : KtxScreen {
     }
 
     override fun render(delta: Float) {
-        clearScreen(red = 0.9f, green = 0.9f, blue = 0.5f)
+        clearScreen(red = 1f, green = 1f, blue = 1f)
         batch.use { batch ->
             val aspectRatio = 948f / 547f
             val width = 400f
@@ -83,7 +87,7 @@ class FirstScreen : KtxScreen {
     }
 }
 
-class SecondScreen : KtxScreen {
+class SecondScreen(val game: Main) : KtxScreen {
     private val batch = SpriteBatch()
     private var camera: Camera = PerspectiveCamera()
     private var viewport: Viewport = FitViewport(800f, 480f, camera)
@@ -93,7 +97,7 @@ class SecondScreen : KtxScreen {
     }
 
     override fun render(delta: Float) {
-        clearScreen(red = 1f, green = 1f, blue = 1f)
+        clearScreen(red = 1f, green = 235f / 255f, blue = 205f / 255f)
     }
 
     override fun dispose() {
