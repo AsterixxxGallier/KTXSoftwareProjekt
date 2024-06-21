@@ -26,19 +26,13 @@ class StartScreen(val controller: Controller) : KtxScreen {
     private var camera: Camera = PerspectiveCamera()
     private var viewport: Viewport = FitViewport(800f, 480f, camera)
 
-    lateinit var stage: Stage
-    lateinit var buttonStyle: Button.ButtonStyle
-    lateinit var button: Button
+    var stage: Stage = Stage()
 
     override fun show() {
-        stage = Stage()
         Gdx.input.inputProcessor = stage
 
         val playButtonDrawable = TextureRegionDrawable(Texture("play_button.png".toInternalFile(), true))
-
-        buttonStyle = Button.ButtonStyle()
-        buttonStyle.up = playButtonDrawable
-        button = Button(buttonStyle)
+        val button = Button(playButtonDrawable)
         stage.addActor(button)
 
         val aspectRatio = button.width / button.height
