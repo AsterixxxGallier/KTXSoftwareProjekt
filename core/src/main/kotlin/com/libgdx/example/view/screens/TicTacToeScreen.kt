@@ -34,24 +34,23 @@ class TicTacToeScreen(val controller: Controller) : KtxScreen {
         stage = Stage()
         Gdx.input.inputProcessor = stage
 
-        val playButtonDrawable = TextureRegionDrawable(Texture("play_button.png".toInternalFile(), true))
+        val playButtonDrawable = TextureRegionDrawable(Texture(controller.model.symbol.toInternalFile(), true))
 
         buttonStyle = Button.ButtonStyle()
         buttonStyle.up = playButtonDrawable
         button = Button(buttonStyle)
         stage.addActor(button)
 
-        val aspectRatio = button.width / button.height
-        button.height = 80f
-        button.width = button.height * aspectRatio
+        button.height = 126f
+        button.width = button.height
 
-        button.setPosition(300f, 100f, Align.center)
+        button.setPosition(324f, 65f, Align.center)
 
         button.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent?, actor: Actor?) {
                 println("Button Pressed")
 
-                controller.playButtonPressed()
+                controller.symbolButtonPressed()
             }
         })
     }
@@ -68,6 +67,11 @@ class TicTacToeScreen(val controller: Controller) : KtxScreen {
             val height = width / aspectRatio
             batch.draw(image, 130f, 5f, width, height)
         }
+
+        val playButtonDrawable = TextureRegionDrawable(Texture(controller.model.symbol.toInternalFile(), true))
+        buttonStyle.up = playButtonDrawable
+
+        stage.draw()
     }
 
     override fun dispose() {

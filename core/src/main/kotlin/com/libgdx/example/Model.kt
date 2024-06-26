@@ -5,6 +5,8 @@ package com.libgdx.example
  */
 class Model {
     var currentScreen = Screen.Start
+
+    var symbol = "x.jpg"
 }
 
 // enumeration = Aufzählung
