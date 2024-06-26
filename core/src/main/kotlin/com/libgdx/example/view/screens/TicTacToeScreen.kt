@@ -27,33 +27,33 @@ class TicTacToeScreen(val controller: Controller) : KtxScreen {
     private var viewport: Viewport = FitViewport(800f, 480f, camera)
 
     lateinit var stage: Stage
-    lateinit var buttonStyle: Button.ButtonStyle
-    lateinit var button: Button
+    lateinit var buttons: Array<Button> // Button[]
 
     override fun show() {
         stage = Stage()
         Gdx.input.inputProcessor = stage
 
-        val playButtonDrawable = TextureRegionDrawable(Texture("play_button.png".toInternalFile(), true))
+        buttons = Array(9) {
+            val buttonStyle = Button.ButtonStyle()
+            buttonStyle.up = TextureRegionDrawable(Texture(controller.model.symbol.toInternalFile(), true))
+            val button = Button(buttonStyle)
+            stage.addActor(button)
 
-        buttonStyle = Button.ButtonStyle()
-        buttonStyle.up = playButtonDrawable
-        button = Button(buttonStyle)
-        stage.addActor(button)
+            button.height = 126f
+            button.width = button.height
 
-        val aspectRatio = button.width / button.height
-        button.height = 80f
-        button.width = button.height * aspectRatio
+            button.setPosition(324f, 65f, Align.center)
 
-        button.setPosition(300f, 100f, Align.center)
+            button.addListener(object : ChangeListener() {
+                override fun changed(event: ChangeEvent?, actor: Actor?) {
+                    println("Button Pressed")
 
-        button.addListener(object : ChangeListener() {
-            override fun changed(event: ChangeEvent?, actor: Actor?) {
-                println("Button Pressed")
+                    controller.symbolButtonPressed()
+                }
+            })
 
-                controller.playButtonPressed()
-            }
-        })
+            button
+        }
     }
 
     override fun resize(width: Int, height: Int) {
@@ -68,6 +68,11 @@ class TicTacToeScreen(val controller: Controller) : KtxScreen {
             val height = width / aspectRatio
             batch.draw(image, 130f, 5f, width, height)
         }
+
+        val playButtonDrawable = TextureRegionDrawable(Texture(controller.model.symbol.toInternalFile(), true))
+        button.style.up = playButtonDrawable
+
+        stage.draw()
     }
 
     override fun dispose() {

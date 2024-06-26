@@ -8,7 +8,7 @@ import com.libgdx.example.view.View
 class Controller {
     // The controller manages both the model and the view.
 
-    private val model = Model()
+    val model = Model()
     val view = View(this)
 
     private fun showScreen(nextScreen: Screen) {
@@ -27,6 +27,7 @@ class Controller {
         // Until the game selection screen is implemented, show the TicTacToe screen immediately.
 //         showScreen(Screen.Start)
         showScreen(Screen.LunarLander)
+        // showScreen(Screen.TicTacToe)
     }
 
     /**
@@ -36,5 +37,14 @@ class Controller {
      */
     fun playButtonPressed() {
         showScreen(Screen.GameSelection)
+    }
+
+    fun symbolButtonPressed() {
+        if (model.symbol == "x.jpg")
+            model.symbol = "o.jpg"
+        else if (model.symbol == "o.jpg")
+            model.symbol = "x.jpg"
+
+        println(model.symbol)
     }
 }
