@@ -45,7 +45,7 @@ class TicTacToeScreen(val controller: Controller) : KtxScreen {
         button.height = 80f
         button.width = button.height * aspectRatio
 
-        button.setPosition(300f,100f, Align.center)
+        button.setPosition(300f, 100f, Align.center)
 
         button.addListener(object : ChangeListener() {
             override fun changed(event: ChangeEvent?, actor: Actor?) {
@@ -54,6 +54,7 @@ class TicTacToeScreen(val controller: Controller) : KtxScreen {
                 controller.playButtonPressed()
             }
         })
+    }
 
     override fun resize(width: Int, height: Int) {
         viewport.update(width, height)
