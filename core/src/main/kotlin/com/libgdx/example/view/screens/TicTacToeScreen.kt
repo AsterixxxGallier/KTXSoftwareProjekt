@@ -27,32 +27,33 @@ class TicTacToeScreen(val controller: Controller) : KtxScreen {
     private var viewport: Viewport = FitViewport(800f, 480f, camera)
 
     lateinit var stage: Stage
-    lateinit var buttonStyle: Button.ButtonStyle
-    lateinit var button: Button
+    lateinit var buttons: Array<Button> // Button[]
 
     override fun show() {
         stage = Stage()
         Gdx.input.inputProcessor = stage
 
-        val playButtonDrawable = TextureRegionDrawable(Texture(controller.model.symbol.toInternalFile(), true))
+        buttons = Array(9) {
+            val buttonStyle = Button.ButtonStyle()
+            buttonStyle.up = TextureRegionDrawable(Texture(controller.model.symbol.toInternalFile(), true))
+            val button = Button(buttonStyle)
+            stage.addActor(button)
 
-        buttonStyle = Button.ButtonStyle()
-        buttonStyle.up = playButtonDrawable
-        button = Button(buttonStyle)
-        stage.addActor(button)
+            button.height = 126f
+            button.width = button.height
 
-        button.height = 126f
-        button.width = button.height
+            button.setPosition(324f, 65f, Align.center)
 
-        button.setPosition(324f, 65f, Align.center)
+            button.addListener(object : ChangeListener() {
+                override fun changed(event: ChangeEvent?, actor: Actor?) {
+                    println("Button Pressed")
 
-        button.addListener(object : ChangeListener() {
-            override fun changed(event: ChangeEvent?, actor: Actor?) {
-                println("Button Pressed")
+                    controller.symbolButtonPressed()
+                }
+            })
 
-                controller.symbolButtonPressed()
-            }
-        })
+            button
+        }
     }
 
     override fun resize(width: Int, height: Int) {
@@ -69,7 +70,7 @@ class TicTacToeScreen(val controller: Controller) : KtxScreen {
         }
 
         val playButtonDrawable = TextureRegionDrawable(Texture(controller.model.symbol.toInternalFile(), true))
-        buttonStyle.up = playButtonDrawable
+        button.style.up = playButtonDrawable
 
         stage.draw()
     }
