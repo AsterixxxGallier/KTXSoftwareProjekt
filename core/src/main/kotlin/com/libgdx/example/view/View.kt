@@ -3,6 +3,7 @@ package com.libgdx.example.view
 import com.libgdx.example.Controller
 import com.libgdx.example.Screen
 import com.libgdx.example.view.screens.GameSelectionScreen
+import com.libgdx.example.view.screens.LunarLanderScreen
 import com.libgdx.example.view.screens.StartScreen
 import com.libgdx.example.view.screens.TicTacToeScreen
 
@@ -19,6 +20,7 @@ class View(val controller: Controller) {
         game.addScreen(StartScreen(controller))
         game.addScreen(GameSelectionScreen(controller))
         game.addScreen(TicTacToeScreen(controller))
+        game.addScreen(LunarLanderScreen(controller))
     }
 
     /**
@@ -29,6 +31,7 @@ class View(val controller: Controller) {
             Screen.Start -> game.setScreen<StartScreen>()
             Screen.GameSelection -> game.setScreen<GameSelectionScreen>()
             Screen.TicTacToe -> game.setScreen<TicTacToeScreen>()
+            Screen.LunarLander -> game.setScreen<LunarLanderScreen>()
         }
     }
 }

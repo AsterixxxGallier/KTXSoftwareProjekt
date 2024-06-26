@@ -25,8 +25,8 @@ class Controller {
         view.addScreens()
 
         // Until the game selection screen is implemented, show the TicTacToe screen immediately.
-         showScreen(Screen.Start)
-//        showScreen(Screen.TicTacToe)
+//         showScreen(Screen.Start)
+        showScreen(Screen.LunarLander)
     }
 
     /**

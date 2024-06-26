@@ -12,4 +12,5 @@ enum class Screen {
     Start,
     GameSelection,
     TicTacToe,
+    LunarLander,
 }
